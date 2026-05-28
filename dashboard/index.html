@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ISS Digital Twin</title>
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+<style>
+
+body{
+    margin:0;
+    background:#0b1020;
+    color:white;
+    font-family:Arial,sans-serif;
+}
+
+.header{
+    background:#111827;
+    padding:20px;
+    text-align:center;
+    font-size:32px;
+    font-weight:bold;
+}
+
+.container{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+    padding:20px;
+}
+
+.card{
+    background:#1f2937;
+    border-radius:15px;
+    padding:20px;
+    box-shadow:0 0 20px rgba(0,255,255,0.2);
+}
+
+.kpi{
+    font-size:40px;
+    font-weight:bold;
+}
+
+.label{
+    color:#9ca3af;
+}
+
+#iss3d{
+    height:500px;
+}
+
+#energyChart{
+    height:400px;
+}
+
+#healthChart{
+    height:400px;
+}
+
+.status{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.module{
+    background:#111827;
+    padding:15px;
+    border-radius:10px;
+    text-align:center;
+}
+
+.green{
+    border-left:5px solid #00ff88;
+}
+
+.yellow{
+    border-left:5px solid #ffcc00;
+}
+
+.red{
+    border-left:5px solid #ff4444;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+🚀 ISS DIGITAL TWIN
+</div>
+
+<div class="container">
+
+<div class="card">
+<div class="label">Health Score</div>
+<div class="kpi">98%</div>
+</div>
+
+<div class="card">
+<div class="label">Energy Savings</div>
+<div class="kpi">110 kW</div>
+</div>
+
+<div class="card">
+<div class="label">Detected Anomalies</div>
+<div class="kpi">12</div>
+</div>
+
+<div class="card">
+<div class="label">Predicted Failures</div>
+<div class="kpi">3</div>
+</div>
+
+</div>
+
+<div class="container">
+
+<div class="card">
+<h2>ISS 3D View</h2>
+<div id="iss3d"></div>
+</div>
+
+<div class="card">
+<h2>Module Status</h2>
+
+<div class="status">
+
+<div class="module green">
+Node1<br>
+Health 99%
+</div>
+
+<div class="module green">
+Node2<br>
+Health 97%
+</div>
+
+<div class="module yellow">
+Harmony<br>
+Health 95%
+</div>
+
+<div class="module yellow">
+Columbus<br>
+Health 92%
+</div>
+
+<div class="module green">
+Kibo<br>
+Health 96%
+</div>
+
+<div class="module green">
+Cupola<br>
+Health 100%
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="container">
+
+<div class="card">
+<h2>Energy Optimization</h2>
+<div id="energyChart"></div>
+</div>
+
+<div class="card">
+<h2>Health Trend</h2>
+<div id="healthChart"></div>
+</div>
+
+</div>
+
+<script>
+
+Plotly.newPlot(
+'iss3d',
+[
+{
+type:'scatter3d',
+mode:'markers+text',
+x:[0,2,1,-1,1,1],
+y:[0,0,1,1,-1,-2],
+z:[0,0,0,0,0,0],
+text:[
+'Node1',
+'Node2',
+'Harmony',
+'Columbus',
+'Kibo',
+'Cupola'
+],
+marker:{
+size:12,
+color:[99,97,95,92,96,100],
+colorscale:'Viridis'
+}
+}
+],
+{
+paper_bgcolor:'#1f2937',
+plot_bgcolor:'#1f2937',
+font:{color:'white'}
+}
+);
+
+Plotly.newPlot(
+'energyChart',
+[
+{
+type:'bar',
+x:[
+'Current',
+'Optimized'
+],
+y:[
+740,
+630
+]
+}
+],
+{
+paper_bgcolor:'#1f2937',
+plot_bgcolor:'#1f2937',
+font:{color:'white'}
+}
+);
+
+Plotly.newPlot(
+'healthChart',
+[
+{
+type:'scatter',
+mode:'lines',
+y:[
+98,
+98,
+97.9,
+98.1,
+98.2,
+98.0,
+98.1
+]
+}
+],
+{
+paper_bgcolor:'#1f2937',
+plot_bgcolor:'#1f2937',
+font:{color:'white'}
+}
+);
+
+</script>
+
+</body>
+</html>
