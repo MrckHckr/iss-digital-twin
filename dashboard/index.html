@@ -4,52 +4,141 @@
 <head>
 
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>ISS Digital Twin</title>
 
-<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="https://cdn.plot.ly/plotly-3.1.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
 <style>
 
 body{
     margin:0;
-    background:#0b1020;
     color:white;
     font-family:Arial,sans-serif;
+
+    background-image:url('https://images-assets.nasa.gov/image/iss063e081155/iss063e081155~large.jpg');
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
 }
 
 .header{
-    background:#111827;
-    padding:20px;
+    background:rgba(0,0,0,0.6);
+    backdrop-filter:blur(10px);
+
+    padding:25px;
+
     text-align:center;
-    font-size:32px;
+
+    font-size:38px;
+
     font-weight:bold;
+
+    color:#00ffff;
+
+    letter-spacing:3px;
+}
+
+.hero-section{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:30px;
+
+    gap:20px;
+}
+
+.left-panel,
+.right-panel{
+
+    width:25%;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:20px;
+}
+
+.iss-center{
+
+    width:50%;
+
+    text-align:center;
+}
+
+.iss-image{
+
+    width:100%;
+
+    max-width:750px;
+
+    border-radius:20px;
+
+    box-shadow:0 0 40px rgba(0,255,255,0.5);
 }
 
 .container{
+
     display:grid;
+
     grid-template-columns:1fr 1fr;
+
     gap:20px;
+
     padding:20px;
 }
 
 .card{
-    background:#1f2937;
+
+    background:rgba(255,255,255,0.08);
+
+    backdrop-filter:blur(10px);
+
+    border:1px solid rgba(255,255,255,0.1);
+
     border-radius:15px;
+
     padding:20px;
+
     box-shadow:0 0 20px rgba(0,255,255,0.2);
 }
 
-.kpi{
-    font-size:40px;
-    font-weight:bold;
+.label{
+    color:#b0b8c4;
+    font-size:18px;
 }
 
-.label{
-    color:#9ca3af;
+.kpi{
+
+    font-size:52px;
+
+    font-weight:bold;
+
+    color:#00ffff;
+
+    animation:pulse 2s infinite;
+}
+
+@keyframes pulse {
+
+    0%{
+        opacity:0.7;
+    }
+
+    50%{
+        opacity:1;
+    }
+
+    100%{
+        opacity:0.7;
+    }
 }
 
 #iss3d{
@@ -65,15 +154,22 @@ body{
 }
 
 .status{
+
     display:grid;
+
     grid-template-columns:repeat(3,1fr);
+
     gap:15px;
 }
 
 .module{
+
     background:#111827;
+
     padding:15px;
+
     border-radius:10px;
+
     text-align:center;
 }
 
@@ -89,6 +185,10 @@ body{
     border-left:5px solid #ff4444;
 }
 
+h2{
+    color:#00ffff;
+}
+
 </style>
 
 </head>
@@ -96,30 +196,46 @@ body{
 <body>
 
 <div class="header">
-🚀 ISS digital twin
+🚀 ISS DIGITAL TWIN
 </div>
 
-<div class="container">
+<div class="hero-section">
 
-<div class="card">
-<div class="label">Health Score</div>
-<div class="kpi" id="healthScore">Loading...</div>
-</div>
+    <div class="left-panel">
 
-<div class="card">
-<div class="label">Energy Savings</div>
-<div class="kpi" id="energySavings">Loading...</div>
-</div>
+        <div class="card">
+            <div class="label">Health Score</div>
+            <div class="kpi" id="healthScore">Loading...</div>
+        </div>
 
-<div class="card">
-<div class="label">Detected Anomalies</div>
-<div class="kpi" id="anomalies">Loading...</div>
-</div>
+        <div class="card">
+            <div class="label">Energy Savings</div>
+            <div class="kpi" id="energySavings">Loading...</div>
+        </div>
 
-<div class="card">
-<div class="label">Predicted Failures</div>
-<div class="kpi" id="failures">Loading...</div>
-</div>
+    </div>
+
+    <div class="iss-center">
+
+        <img
+        class="iss-image"
+        src="https://upload.wikimedia.org/wikipedia/commons/d/d0/International_Space_Station_after_undocking_of_STS-132.jpg">
+
+    </div>
+
+    <div class="right-panel">
+
+        <div class="card">
+            <div class="label">Predicted Failures</div>
+            <div class="kpi" id="failures">Loading...</div>
+        </div>
+
+        <div class="card">
+            <div class="label">Detected Anomalies</div>
+            <div class="kpi" id="anomalies">Loading...</div>
+        </div>
+
+    </div>
 
 </div>
 
@@ -136,33 +252,27 @@ body{
 <div class="status">
 
 <div class="module green">
-Node1<br>
-Health 99%
+Node1<br>Health 99%
 </div>
 
 <div class="module green">
-Node2<br>
-Health 97%
+Node2<br>Health 97%
 </div>
 
 <div class="module yellow">
-Harmony<br>
-Health 95%
+Harmony<br>Health 95%
 </div>
 
 <div class="module yellow">
-Columbus<br>
-Health 92%
+Columbus<br>Health 92%
 </div>
 
 <div class="module green">
-Kibo<br>
-Health 96%
+Kibo<br>Health 96%
 </div>
 
 <div class="module green">
-Cupola<br>
-Health 100%
+Cupola<br>Health 100%
 </div>
 
 </div>
@@ -189,8 +299,7 @@ Health 100%
 
 Plotly.newPlot(
 'iss3d',
-[
-{
+[{
 type:'scatter3d',
 mode:'markers+text',
 x:[0,2,1,-1,1,1],
@@ -209,57 +318,38 @@ size:12,
 color:[99,97,95,92,96,100],
 colorscale:'Viridis'
 }
-}
-],
+}],
 {
-paper_bgcolor:'#1f2937',
-plot_bgcolor:'#1f2937',
+paper_bgcolor:'rgba(0,0,0,0)',
+plot_bgcolor:'rgba(0,0,0,0)',
 font:{color:'white'}
 }
 );
 
 Plotly.newPlot(
 'energyChart',
-[
-{
+[{
 type:'bar',
-x:[
-'Current',
-'Optimized'
-],
-y:[
-740,
-630
-]
-}
-],
+x:['Current','Optimized'],
+y:[740,630]
+}],
 {
-paper_bgcolor:'#1f2937',
-plot_bgcolor:'#1f2937',
+paper_bgcolor:'rgba(0,0,0,0)',
+plot_bgcolor:'rgba(0,0,0,0)',
 font:{color:'white'}
 }
 );
 
 Plotly.newPlot(
 'healthChart',
-[
-{
+[{
 type:'scatter',
 mode:'lines',
-y:[
-98,
-98,
-97.9,
-98.1,
-98.2,
-98.0,
-98.1
-]
-}
-],
+y:[98,98,97.9,98.1,98.2,98.0,98.1]
+}],
 {
-paper_bgcolor:'#1f2937',
-plot_bgcolor:'#1f2937',
+paper_bgcolor:'rgba(0,0,0,0)',
+plot_bgcolor:'rgba(0,0,0,0)',
 font:{color:'white'}
 }
 );
@@ -271,31 +361,23 @@ font:{color:'white'}
 Papa.parse(
     "data/dashboard_metrics.csv?v=" + Date.now(),
     {
-        download: true,
-        header: true,
+        download:true,
+        header:true,
 
-        complete: function(results){
+        complete:function(results){
 
             const data = results.data[0];
 
-            document.getElementById(
-                "healthScore"
-            ).innerHTML =
+            document.getElementById("healthScore").innerHTML =
                 data.health_score + "%";
 
-            document.getElementById(
-                "energySavings"
-            ).innerHTML =
+            document.getElementById("energySavings").innerHTML =
                 data.energy_savings + " kW";
 
-            document.getElementById(
-                "anomalies"
-            ).innerHTML =
+            document.getElementById("anomalies").innerHTML =
                 data.detected_anomalies;
 
-            document.getElementById(
-                "failures"
-            ).innerHTML =
+            document.getElementById("failures").innerHTML =
                 data.predicted_failures;
 
             console.log(
