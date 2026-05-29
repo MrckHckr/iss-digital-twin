@@ -10,6 +10,7 @@
 <title>ISS Digital Twin</title>
 
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
 <style>
 
@@ -102,22 +103,22 @@ body{
 
 <div class="card">
 <div class="label">Health Score</div>
-<div class="kpi">98%</div>
+<div class="kpi" id="healthScore">Loading...</div>
 </div>
 
 <div class="card">
 <div class="label">Energy Savings</div>
-<div class="kpi">110 kW</div>
+<div class="kpi" id="energySavings">Loading...</div>
 </div>
 
 <div class="card">
 <div class="label">Detected Anomalies</div>
-<div class="kpi">12</div>
+<div class="kpi" id="anomalies">Loading...</div>
 </div>
 
 <div class="card">
 <div class="label">Predicted Failures</div>
-<div class="kpi">3</div>
+<div class="kpi" id="failures">Loading...</div>
 </div>
 
 </div>
@@ -261,6 +262,48 @@ paper_bgcolor:'#1f2937',
 plot_bgcolor:'#1f2937',
 font:{color:'white'}
 }
+);
+
+</script>
+
+<script>
+
+Papa.parse(
+    "data/dashboard_metrics.csv",
+    {
+        download: true,
+        header: true,
+
+        complete: function(results){
+
+            const data = results.data[0];
+
+            document.getElementById(
+                "healthScore"
+            ).innerHTML =
+                data.health_score + "%";
+
+            document.getElementById(
+                "energySavings"
+            ).innerHTML =
+                data.energy_savings + " kW";
+
+            document.getElementById(
+                "anomalies"
+            ).innerHTML =
+                data.detected_anomalies;
+
+            document.getElementById(
+                "failures"
+            ).innerHTML =
+                data.predicted_failures;
+
+            console.log(
+                "Dashboard data loaded:",
+                data
+            );
+        }
+    }
 );
 
 </script>
