@@ -269,7 +269,7 @@ font:{color:'white'}
 <script>
 
 Papa.parse(
-    "data/dashboard_metrics.csv",
+    "data/dashboard_metrics.csv?v=" + Date.now(),
     {
         download: true,
         header: true,
